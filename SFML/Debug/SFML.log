@@ -1,0 +1,7 @@
+﻿  Player.cpp
+F:\Portfolio\SFML\SFML\SFML\SFML\Player.cpp(57,76): warning C4244: 'argument': conversion from 'const T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+  SFML.vcxproj -> F:\Portfolio\SFML\SFML\SFML\Debug\SFML.exe
