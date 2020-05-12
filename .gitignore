@@ -39,3 +39,5 @@
 *.idb
 *.pdb
 *.opendb
+*.ilk
+*.db
