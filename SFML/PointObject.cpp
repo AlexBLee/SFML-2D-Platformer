@@ -9,10 +9,12 @@ PointObject::PointObject(Type type, sf::Texture& texture)
 	switch (type)
 	{
 		case(Type::Apple):
+			SetUVRectLeft((int)Type::Apple);
 			m_ScoreGiven = 300;
 			break;
 
 		case(Type::Star):
+			SetUVRectLeft((int)Type::Star);
 			m_ScoreGiven = 1000;
 			break;
 	}

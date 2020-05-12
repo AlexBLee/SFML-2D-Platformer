@@ -105,6 +105,9 @@
     <ClInclude Include="Animation.h">
       <Filter>Entity</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectTypes.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="testlevel.txt">

@@ -166,6 +166,7 @@
     <ClInclude Include="MapReader.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjectTypes.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PointObject.h" />
     <ClInclude Include="Projectile.h" />

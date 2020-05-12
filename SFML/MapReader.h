@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Object.h"
+#include "ObjectTypes.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -10,9 +11,9 @@ class Tile;
 struct ObjectPos
 {
 	sf::Vector2f position;
-	Object::Type pType;
+	Type pType;
 
-	ObjectPos(sf::Vector2f pos, Object::Type type)
+	ObjectPos(sf::Vector2f pos, Type type)
 		: position(pos)
 		, pType(type)
 	{

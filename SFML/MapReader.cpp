@@ -1,5 +1,6 @@
 #include "MapReader.h"
 #include "Tile.h"
+#include "ObjectTypes.h"
 
 MapReader::MapReader(std::string textFile)
 	: m_TileMap({})
@@ -68,23 +69,23 @@ sf::VertexArray MapReader::SetLevel()
 					tileNumber = 2;
 					break;
 				case 5:
-					m_ObjectPositions.push_back(ObjectPos(sf::Vector2f(i * m_TileWidth, j * m_TileHeight), Object::Type::Apple));
+					m_ObjectPositions.push_back(ObjectPos(sf::Vector2f(i * m_TileWidth, j * m_TileHeight), Type::Apple));
 					tileNumber = 2;
 					break;
 				case 6:
-					m_ObjectPositions.push_back(ObjectPos(sf::Vector2f(i * m_TileWidth, j * m_TileHeight), Object::Type::Star));
+					m_ObjectPositions.push_back(ObjectPos(sf::Vector2f(i * m_TileWidth, j * m_TileHeight), Type::Star));
 					tileNumber = 2;
 					break;
 				case 7:
-					m_ObjectPositions.push_back(ObjectPos(sf::Vector2f(i * m_TileWidth, j * m_TileHeight), Object::Type::FlagPole));
+					m_ObjectPositions.push_back(ObjectPos(sf::Vector2f(i * m_TileWidth, j * m_TileHeight), Type::FlagPole));
 					tileNumber = 2;
 					break;
 				case 8:
-					m_ObjectPositions.push_back(ObjectPos(sf::Vector2f(i * m_TileWidth, j * m_TileHeight), Object::Type::FlagStart));
+					m_ObjectPositions.push_back(ObjectPos(sf::Vector2f(i * m_TileWidth, j * m_TileHeight), Type::FlagStart));
 					tileNumber = 2;
 					break;
 				case 9:
-					m_ObjectPositions.push_back(ObjectPos(sf::Vector2f(i * m_TileWidth, j * m_TileHeight), Object::Type::Flag));
+					m_ObjectPositions.push_back(ObjectPos(sf::Vector2f(i * m_TileWidth, j * m_TileHeight), Type::Flag));
 					tileNumber = 2;
 					break;
 				case 72:

@@ -5,6 +5,20 @@
 GoalObject::GoalObject(Type type, sf::Texture& texture)
 	: Object(type, texture)
 {
+	switch (type)
+	{
+		case(Type::FlagPole):
+			SetUVRectLeft((int)Type::FlagPole);
+			break;
+
+		case(Type::FlagStart):
+			SetUVRectLeft((int)Type::FlagStart);
+			break;
+
+		case(Type::Flag):
+			SetUVRectLeft((int)Type::Flag);
+			break;
+	}
 }
 
 void GoalObject::DetectCollision(Player& player, Game& game)
