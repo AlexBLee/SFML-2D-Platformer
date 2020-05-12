@@ -5,6 +5,7 @@ Enemy::Enemy(sf::Texture& texture)
 	: Entity(texture)
 	, m_Killed(false)
 	, m_PointsGranted(300)
+	, m_DetectDistance(5.0f * 32)
 {
 	SetTexture(texture);
 	moveRight = true;
@@ -66,8 +67,11 @@ void Enemy::DetectCollisionL(MapReader& mr, sf::FloatRect boundingBox, int index
 
 void Enemy::DetectPlayerCollision(Player& player)
 {
-	if (GetBoundingBox().intersects(player.GetBoundingBox()))
+	if (abs(GetPosition().x - player.GetPosition().x) < m_DetectDistance)
 	{
-		player.SubtractLife();
+		if (GetBoundingBox().intersects(player.GetBoundingBox()))
+		{
+			player.SubtractLife();
+		}
 	}
 }

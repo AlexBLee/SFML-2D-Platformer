@@ -22,5 +22,6 @@ private:
 private:
 	bool m_Killed;
 	const int m_PointsGranted;
+	float m_DetectDistance;
 };
 
