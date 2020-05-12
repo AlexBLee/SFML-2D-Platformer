@@ -31,15 +31,17 @@ void Game::Init()
 	m_ObjectTexture.loadFromFile("objects.png");
 
 	// load objects into list
-	for (auto& x : m_MapReader.GetObjectSpawnPositions())
+	for (auto& obj : m_MapReader.GetObjectSpawnPositions())
 	{
-		if ((int)x.pType > 1)
+		// if the number of the enum found in the MapReader list is after 1 (or after Type::Star), it is a goal object. 
+		if ((int)obj.objectType > 1)
 		{
-			m_Objects.push_back(std::make_unique<GoalObject>(x.pType, m_ObjectTexture));
+			m_Objects.push_back(std::make_unique<GoalObject>(obj.objectType, m_ObjectTexture));
 		}
+		// otherwise, its a point object
 		else
 		{
-			m_Objects.push_back(std::make_unique<PointObject>(x.pType, m_ObjectTexture));
+			m_Objects.push_back(std::make_unique<PointObject>(obj.objectType, m_ObjectTexture));
 		}
 	}
 
@@ -141,6 +143,8 @@ void Game::Update(float dt)
 
 		for (auto& prj : m_Player->GetProjectiles())
 		{
+			// if the projectie hits something, then remove it
+			// p.s might cause problems if size > 1 because it always pops the first shot
 			if (!prj.isExisting())
 			{
 				m_Player->GetProjectiles().pop_front();

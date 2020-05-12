@@ -22,12 +22,16 @@ PointObject::PointObject(Type type, sf::Texture& texture)
 
 void PointObject::DetectCollision(Player& player, Game& game)
 {
-	if (GetSprite().getGlobalBounds().intersects(player.GetBoundingBox()))
+	// enable checking for collision if the player is close enough
+	if (abs(GetSprite().getPosition().x - player.GetPosition().x) < GetDetectDistance())
 	{
-		SetPosition(sf::Vector2f(0, 0)); // hide it at end of the map so player can no longer interact with it
-		player.AddScore(m_ScoreGiven);
-		player.PlaySound("smb_coin.wav");
-		m_Taken = true;
+		if (GetSprite().getGlobalBounds().intersects(player.GetBoundingBox()))
+		{
+			SetPosition(sf::Vector2f(0, 0)); // hide it at end of the map so player can no longer interact with it
+			player.AddScore(m_ScoreGiven);
+			player.PlaySound("smb_coin.wav");
+			m_Taken = true;
+		}
 	}
 	
 }

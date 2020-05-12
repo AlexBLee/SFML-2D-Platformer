@@ -11,6 +11,7 @@ public:
 	Object(Type type, sf::Texture &texture);
 
 	sf::Sprite GetSprite()							{ return m_Sprite; }
+	float GetDetectDistance()						{ return m_DetectDistance; }
 
 	void SetPosition(sf::Vector2f pos)				{ m_Sprite.setPosition(pos); }
 	void SetTaken(bool taken)						{ m_Taken = taken; }
@@ -25,6 +26,8 @@ private:
 
 	sf::Sprite m_Sprite;
 	sf::IntRect m_UvRect;
+
 	bool m_Taken;
+	float m_DetectDistance;
 };
 

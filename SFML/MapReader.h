@@ -11,11 +11,11 @@ class Tile;
 struct ObjectPos
 {
 	sf::Vector2f position;
-	Type pType;
+	Type objectType;
 
 	ObjectPos(sf::Vector2f pos, Type type)
 		: position(pos)
-		, pType(type)
+		, objectType(type)
 	{
 	}
 };

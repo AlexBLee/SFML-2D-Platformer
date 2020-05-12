@@ -8,6 +8,7 @@ Object::Object(Type type, sf::Texture& texture)
 	, m_Sprite(texture)
 	, m_UvRect(0, 0, m_Texture.getSize().x/numOfTextures, m_Texture.getSize().y)
 	, m_Taken(false)
+	, m_DetectDistance(5.0f * 32)
 {
 }
 

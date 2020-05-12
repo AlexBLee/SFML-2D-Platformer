@@ -23,11 +23,15 @@ GoalObject::GoalObject(Type type, sf::Texture& texture)
 
 void GoalObject::DetectCollision(Player& player, Game& game)
 {
-	if (GetSprite().getGlobalBounds().intersects(player.GetBoundingBox()))
+	// enable checking for collision if the player is close enough
+	if (abs(GetSprite().getPosition().x - player.GetPosition().x) < GetDetectDistance())
 	{
-		player.SetPosition(sf::Vector2f(128, 32));
-		game.PlaySound("smb_world_clear.wav");
-		game.SetWin(true);
+		if (GetSprite().getGlobalBounds().intersects(player.GetBoundingBox()))
+		{
+			player.SetPosition(sf::Vector2f(128, 32));
+			game.PlaySound("smb_world_clear.wav");
+			game.SetWin(true);
+		}
 	}
 
 }

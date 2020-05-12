@@ -5,7 +5,6 @@ class PointObject : public Object
 {
 public:
 	PointObject(Type type, sf::Texture& texture);
-
 	void DetectCollision(Player& player, Game& game);
 
 private:
