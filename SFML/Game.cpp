@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "Object.h"
 #include "MapReader.h"
+#include "GoalObject.h"
+#include "PointObject.h"
 
 Game::Game()
 	: m_Window(sf::VideoMode(1024, 1024), "2D Platformer")
@@ -31,7 +33,14 @@ void Game::Init()
 	// load objects into list
 	for (auto& x : m_MapReader.GetObjectSpawnPositions())
 	{
-		m_Objects.push_back(Object(x.pType, m_ObjectTexture));
+		if ((int)x.pType > 1)
+		{
+			m_Objects.push_back(std::make_unique<GoalObject>(x.pType, m_ObjectTexture));
+		}
+		else
+		{
+			m_Objects.push_back(std::make_unique<PointObject>(x.pType, m_ObjectTexture));
+		}
 	}
 
 	// load enemys into list
@@ -127,7 +136,7 @@ void Game::Update(float dt)
 
 		for (auto& obj : m_Objects)
 		{
-			obj.DetectCollision(*m_Player, *this);
+			obj->DetectCollision(*m_Player, *this);
 		}
 
 		for (auto& prj : m_Player->GetProjectiles())
@@ -236,7 +245,7 @@ void Game::Draw()
 
 	for (auto& objSprite : m_Objects)
 	{
-		objSprite.DrawSprite(m_Window);
+		objSprite->DrawSprite(m_Window);
 	}
 
 	for (auto& enemy : m_Enemys)
@@ -288,8 +297,8 @@ void Game::Reset()
 	// object reset
 	for (int i = 0; i < m_Objects.size(); i++)
 	{
-		m_Objects[i].SetTaken(false);
-		m_Objects[i].SetPosition(m_MapReader.GetObjectSpawnPositions()[i].position);
+		m_Objects[i]->SetTaken(false);
+		m_Objects[i]->SetPosition(m_MapReader.GetObjectSpawnPositions()[i].position);
 	}
 }
 

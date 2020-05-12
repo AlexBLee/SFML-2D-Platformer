@@ -1,7 +1,14 @@
-﻿  Player.cpp
+﻿  Game.cpp
+F:\Portfolio\SFML\SFML\SFML\SFML\Game.cpp(291,20): warning C4018: '<': signed/unsigned mismatch
+F:\Portfolio\SFML\SFML\SFML\SFML\Game.cpp(298,20): warning C4018: '<': signed/unsigned mismatch
+  GoalObject.cpp
+  Object.cpp
+  Player.cpp
 F:\Portfolio\SFML\SFML\SFML\SFML\Player.cpp(57,76): warning C4244: 'argument': conversion from 'const T' to 'int', possible loss of data
           with
           [
               T=float
           ]
+  main.cpp
+  Generating Code...
   SFML.vcxproj -> F:\Portfolio\SFML\SFML\SFML\Debug\SFML.exe

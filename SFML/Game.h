@@ -42,7 +42,7 @@ private:
 
 	std::vector<Enemy> m_Enemys;
 
-	std::vector<Object> m_Objects;
+	std::vector<std::unique_ptr<Object>> m_Objects;
 	sf::Texture m_ObjectTexture;
 	
 	Menu m_Menu;
