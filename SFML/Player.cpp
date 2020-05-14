@@ -14,7 +14,7 @@ Player::Player(sf::Texture& texture)
 	, m_ShootCooldown(1.0f)
 	, m_CooldownClock()
 {
-	SetAnimationTexture(&texture, sf::Vector2u(6, 4), .6f);
+	SetAnimationTexture(&texture, sf::Vector2u(6, 4), 6.f);
 	idleFrameCount = 4;
 	walkFrameCount = 6;
 	jumpFrameCount = 2;

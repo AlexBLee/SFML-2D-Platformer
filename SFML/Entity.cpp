@@ -43,66 +43,6 @@ Entity::Entity(sf::Texture& texture)
 	m_Animation.ChangeAnimation(animStates::Idle, idleFrameCount, true);
 }
 
-void Entity::Move(float dt)
-{
-	if (moveLeft)
-	{
-		m_Animation.ChangeAnimation(animStates::Run, walkFrameCount, true);
-
-		// if facing right, turn left
-		if (m_FaceRight)
-		{
-			m_Sprite.scale(-1.f, 1.f);
-			m_FaceRight = false;
-		}
-
-		m_Velocity.x -= m_Accel;
-
-		if (m_Velocity.x < -m_MaxLandSpeed)
-		{
-			m_Velocity.x = -m_MaxLandSpeed;
-		}
-	}
-	else if (moveRight)
-	{
-		m_Animation.ChangeAnimation(animStates::Run, walkFrameCount, true);
-
-		// if facing left, turn right
-		if (!m_FaceRight)
-		{
-			m_Sprite.scale(-1.f, 1.f);
-			m_FaceRight = true;
-		}
-
-		m_Velocity.x += m_Accel;
-
-		if (m_Velocity.x > m_MaxLandSpeed)
-		{
-			m_Velocity.x = m_MaxLandSpeed;
-		}
-	}
-
-	if (isJumping)
-	{
-		jumpAnimCheck = true;
-		
-		if (!m_inAir)
-		{
-			m_Animation.ChangeAnimation(animStates::Jump, jumpFrameCount, false);
-
-			PlaySound("smb_jump-small.wav");
-
-			m_Velocity.y -= m_JumpForce;
-			m_inAir = true;
-		}
-	}
-}
-
-void Entity::SetAnimationTexture(sf::Texture* texture, sf::Vector2u dimensions, int switchTime)
-{
-	m_Animation = Animation(texture, dimensions, switchTime);
-}
-
 void Entity::Update(float dt, MapReader& mr)
 {
 	CalculateCollision(mr);
@@ -154,6 +94,18 @@ void Entity::Update(float dt, MapReader& mr)
 
 }
 
+void Entity::DrawSprite(sf::RenderWindow& window)
+{
+	window.draw(m_Sprite);
+}
+
+void Entity::PlaySound(std::string input)
+{
+	m_SoundBuffer.loadFromFile(input);
+	m_Sound.setBuffer(m_SoundBuffer);
+	m_Sound.play();
+}
+
 void Entity::CalculateCollision(MapReader& mr)
 {
 	sf::FloatRect boundingBox = m_Sprite.getGlobalBounds();
@@ -173,6 +125,66 @@ void Entity::CalculateCollision(MapReader& mr)
 	// left
 	DetectCollisionL(mr, boundingBox, (xCoor - 1) * m_Width + yCoor);
 
+}
+
+void Entity::Move(float dt)
+{
+	if (moveLeft)
+	{
+		m_Animation.ChangeAnimation(animStates::Run, walkFrameCount, true);
+
+		// if facing right, turn left
+		if (m_FaceRight)
+		{
+			m_Sprite.scale(-1.f, 1.f);
+			m_FaceRight = false;
+		}
+
+		m_Velocity.x -= m_Accel;
+
+		if (m_Velocity.x < -m_MaxLandSpeed)
+		{
+			m_Velocity.x = -m_MaxLandSpeed;
+		}
+	}
+	else if (moveRight)
+	{
+		m_Animation.ChangeAnimation(animStates::Run, walkFrameCount, true);
+
+		// if facing left, turn right
+		if (!m_FaceRight)
+		{
+			m_Sprite.scale(-1.f, 1.f);
+			m_FaceRight = true;
+		}
+
+		m_Velocity.x += m_Accel;
+
+		if (m_Velocity.x > m_MaxLandSpeed)
+		{
+			m_Velocity.x = m_MaxLandSpeed;
+		}
+	}
+
+	if (isJumping)
+	{
+		jumpAnimCheck = true;
+
+		if (!m_inAir)
+		{
+			m_Animation.ChangeAnimation(animStates::Jump, jumpFrameCount, false);
+
+			PlaySound("smb_jump-small.wav");
+
+			m_Velocity.y -= m_JumpForce;
+			m_inAir = true;
+		}
+	}
+}
+
+void Entity::SetAnimationTexture(sf::Texture* texture, sf::Vector2u dimensions, int switchTime)
+{
+	m_Animation = Animation(texture, dimensions, switchTime);
 }
 
 void Entity::DetectCollisionL(MapReader& mr, sf::FloatRect boundingBox, int index)
@@ -233,16 +245,10 @@ void Entity::DetectCollisionA(MapReader& mr, sf::FloatRect boundingBox, int inde
 
 }
 
-void Entity::DrawSprite(sf::RenderWindow &window)
-{
-	window.draw(m_Sprite);
-}
 
-void Entity::PlaySound(std::string input)
-{
-	m_SoundBuffer.loadFromFile(input);
-	m_Sound.setBuffer(m_SoundBuffer);
-	m_Sound.play();
-}
+
+
+
+
 
 

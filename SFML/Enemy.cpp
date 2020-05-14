@@ -9,7 +9,7 @@ Enemy::Enemy(sf::Texture& texture)
 {
 	SetTexture(texture);
 
-	SetAnimationTexture(&texture, sf::Vector2u(4, 2), 2.0f);
+	SetAnimationTexture(&texture, sf::Vector2u(4, 2), 6.f);
 	idleFrameCount = 4;
 	walkFrameCount = 4;
 	jumpFrameCount = 0;
@@ -35,17 +35,28 @@ void Enemy::Update(float dt, MapReader& mr, Player& player)
 	}
 }
 
+void Enemy::Reset()
+{
+	moveLeft = false;
+	moveRight = true;
+	m_Killed = false;
+}
+
 void Enemy::Stop()
 {
 	moveLeft = false;
 	moveRight = false;
 }
 
-void Enemy::Reset()
+void Enemy::DetectPlayerCollision(Player& player)
 {
-	moveLeft = false;
-	moveRight = true;
-	m_Killed = false;
+	if (abs(GetPosition().x - player.GetPosition().x) < m_DetectDistance)
+	{
+		if (GetBoundingBox().intersects(player.GetBoundingBox()))
+		{
+			player.SubtractLife();
+		}
+	}
 }
 
 void Enemy::DetectCollisionR(MapReader& mr, sf::FloatRect boundingBox, int index)
@@ -72,13 +83,3 @@ void Enemy::DetectCollisionL(MapReader& mr, sf::FloatRect boundingBox, int index
 	}
 }
 
-void Enemy::DetectPlayerCollision(Player& player)
-{
-	if (abs(GetPosition().x - player.GetPosition().x) < m_DetectDistance)
-	{
-		if (GetBoundingBox().intersects(player.GetBoundingBox()))
-		{
-			player.SubtractLife();
-		}
-	}
-}

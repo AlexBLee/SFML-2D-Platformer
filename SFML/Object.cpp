@@ -37,3 +37,4 @@ void Object::DetectCollision(Player& player, Game& game)
 {
 }
 
+

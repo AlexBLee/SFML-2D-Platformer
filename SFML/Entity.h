@@ -28,6 +28,9 @@ public:
 	void SetTextureRect(sf::IntRect ir)		{ m_Sprite.setTextureRect(ir); }
 	void SetTexture(sf::Texture& texture)	{ m_Sprite.setTexture(texture); }
 
+private:
+	void CalculateCollision(MapReader& mr);
+	void Move(float dt);
 
 protected:
 	virtual void DetectCollisionR(MapReader& mr, sf::FloatRect boundingBox, int index);
@@ -37,9 +40,7 @@ protected:
 	void SetAnimationTexture(sf::Texture* texture, sf::Vector2u dimensions, int switchTime);
 
 
-private:
-	void CalculateCollision(MapReader& mr);
-	void Move(float dt);
+
 
 private:
 	sf::Sprite m_Sprite;

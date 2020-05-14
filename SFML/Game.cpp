@@ -124,6 +124,13 @@ void Game::Run()
 	}
 }
 
+void Game::PlaySound(std::string input)
+{
+	m_Buffer.loadFromFile(input);
+	m_Sound.setBuffer(m_Buffer);
+	m_Sound.play();
+}
+
 void Game::Update(float dt)
 {
 	if (!m_Paused && !m_GameOver && !m_GameWin)
@@ -227,18 +234,6 @@ void Game::CheckGameState()
 	}
 }
 
-void Game::DrawPauseText(sf::RenderWindow& window)
-{
-	sf::Text text;
-
-	text.setFont(m_Font);
-	text.setPosition(m_Camera.getCenter().x - 50, m_Camera.getCenter().y - 150);
-	text.setString("PAUSED");
-
-	window.draw(text);
-
-}
-
 void Game::Draw()
 {
 	// draw map/text
@@ -277,6 +272,18 @@ void Game::Draw()
 	}
 }
 
+void Game::DrawPauseText(sf::RenderWindow& window)
+{
+	sf::Text text;
+
+	text.setFont(m_Font);
+	text.setPosition(m_Camera.getCenter().x - 50, m_Camera.getCenter().y - 150);
+	text.setString("PAUSED");
+
+	window.draw(text);
+
+}
+
 void Game::Reset()
 {
 	if (!m_GameOver)
@@ -309,10 +316,5 @@ void Game::Reset()
 	}
 }
 
-void Game::PlaySound(std::string input)
-{
-	m_Buffer.loadFromFile(input);
-	m_Sound.setBuffer(m_Buffer);
-	m_Sound.play();
-}
+
 
