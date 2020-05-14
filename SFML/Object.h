@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "ObjectTypes.h"
 
 class Player;
@@ -17,6 +18,8 @@ public:
 	void SetTaken(bool taken)						{ m_Taken = taken; }
 	void SetUVRectLeft(int number);
 
+	void PlaySound(std::string input);
+
 	void DrawSprite(sf::RenderWindow& window);
 	virtual void DetectCollision(Player& player, Game& game);
 
@@ -29,5 +32,8 @@ private:
 
 	bool m_Taken;
 	float m_DetectDistance;
+
+	sf::SoundBuffer m_Buffer;
+	sf::Sound m_Sound;
 };
 

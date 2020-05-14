@@ -220,6 +220,7 @@ void Game::CheckGameState()
 	// draw game over menu if the player has won
 	else if (m_GameWin)
 	{
+		m_Music.stop();
 		m_Menu.SetWinScreen();
 	}
 }

@@ -18,6 +18,13 @@ void Object::SetUVRectLeft(int number)
 	m_Sprite.setTextureRect(m_UvRect);
 }
 
+void Object::PlaySound(std::string input)
+{
+	m_Buffer.loadFromFile(input);
+	m_Sound.setBuffer(m_Buffer);
+	m_Sound.play();
+}
+
 void Object::DrawSprite(sf::RenderWindow& window)
 {
 	if (!m_Taken)

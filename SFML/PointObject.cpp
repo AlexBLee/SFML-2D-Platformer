@@ -29,7 +29,7 @@ void PointObject::DetectCollision(Player& player, Game& game)
 		{
 			SetPosition(sf::Vector2f(0, 0)); // hide it at end of the map so player can no longer interact with it
 			player.AddScore(m_ScoreGiven);
-			player.PlaySound("smb_coin.wav");
+			PlaySound("smb_coin.wav");
 			m_Taken = true;
 		}
 	}
