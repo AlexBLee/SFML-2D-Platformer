@@ -1,5 +1,0 @@
-TODO LIST:
-- Finish goal for level
-- sound for shooting/enemy dying
-- little boom when enemy dies?
-- Menus
