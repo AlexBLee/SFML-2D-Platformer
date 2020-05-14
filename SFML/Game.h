@@ -41,6 +41,7 @@ private:
 	sf::Texture m_PlayerTexture;
 
 	std::vector<Enemy> m_Enemys;
+	sf::Texture m_EnemyTexture;
 
 	std::vector<std::unique_ptr<Object>> m_Objects;
 	sf::Texture m_ObjectTexture;

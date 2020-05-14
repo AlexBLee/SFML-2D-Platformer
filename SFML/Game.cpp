@@ -28,6 +28,8 @@ void Game::Init()
 	m_PlayerTexture.loadFromFile("characterspritesheet.png");
 	m_Player = std::make_unique<Player>(m_PlayerTexture);
 
+	m_EnemyTexture.loadFromFile("enemyTexture.png");
+
 	m_ObjectTexture.loadFromFile("objects.png");
 
 	// load objects into list
@@ -48,7 +50,7 @@ void Game::Init()
 	// load enemys into list
 	for (auto& x : m_MapReader.GetEnemySpawnPositions())
 	{
-		m_Enemys.push_back(Enemy(m_PlayerTexture));
+		m_Enemys.push_back(Enemy(m_EnemyTexture));
 	}
 
 	// text for lives and score
