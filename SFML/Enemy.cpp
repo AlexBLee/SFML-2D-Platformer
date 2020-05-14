@@ -8,6 +8,13 @@ Enemy::Enemy(sf::Texture& texture)
 	, m_DetectDistance(5.0f * 32)
 {
 	SetTexture(texture);
+
+	SetAnimationTexture(&texture, sf::Vector2u(4, 2), 2.0f);
+	idleFrameCount = 4;
+	walkFrameCount = 4;
+	jumpFrameCount = 0;
+	hurtFrameCount = 0;
+
 	moveRight = true;
 	moveLeft = false;
 }

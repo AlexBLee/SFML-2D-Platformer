@@ -13,7 +13,6 @@ class Entity
 {
 public:
 	Entity(sf::Texture& texture);
-	~Entity();
 
 	void Update(float dt, MapReader& mr);
 	void DrawSprite(sf::RenderWindow& window);
@@ -35,6 +34,8 @@ protected:
 	virtual void DetectCollisionL(MapReader& mr, sf::FloatRect boundingBox, int index);
 	virtual void DetectCollisionB(MapReader& mr, sf::FloatRect boundingBox, int index);
 	void DetectCollisionA(MapReader& mr, sf::FloatRect boundingBox, int index);
+	void SetAnimationTexture(sf::Texture* texture, sf::Vector2u dimensions, int switchTime);
+
 
 private:
 	void CalculateCollision(MapReader& mr);
@@ -73,5 +74,11 @@ protected:
 	bool moveLeft;
 	bool isJumping;
 	bool jumpAnimCheck; // needed for animation checking
+
+	int idleFrameCount;
+	int walkFrameCount;
+	int jumpFrameCount;
+	int hurtFrameCount;
+
 };
 

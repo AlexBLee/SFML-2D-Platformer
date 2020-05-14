@@ -14,6 +14,12 @@ Player::Player(sf::Texture& texture)
 	, m_ShootCooldown(1.0f)
 	, m_CooldownClock()
 {
+	SetAnimationTexture(&texture, sf::Vector2u(6, 4), .6f);
+	idleFrameCount = 4;
+	walkFrameCount = 6;
+	jumpFrameCount = 2;
+	hurtFrameCount = 1;
+
 	m_ProjectileTexture.loadFromFile("bullet.png");
 	m_CooldownClock.restart();
 }

@@ -4,7 +4,7 @@
 Entity::Entity(sf::Texture& texture)
 	: m_Sprite(texture, sf::IntRect(0, 0, m_Width, m_Height))
 	, m_Texture(texture)
-	, m_Animation(&texture, sf::Vector2u(6,4), 6.f)
+	, m_Animation(&texture, sf::Vector2u(6, 4), 6.f)
 	, m_Width(32)
 	, m_Height(32)
 	, m_SoundBuffer()
@@ -23,6 +23,10 @@ Entity::Entity(sf::Texture& texture)
 	, moveLeft(false)
 	, isJumping(false)
 	, jumpAnimCheck(false)
+	, idleFrameCount(4)
+	, walkFrameCount(6)
+	, jumpFrameCount(2)
+	, hurtFrameCount(1)
 {
 	// load texture
 	m_Sprite.setTexture(m_Texture, true);
@@ -36,19 +40,14 @@ Entity::Entity(sf::Texture& texture)
 	m_Sprite.setPosition(15*32, 27*32);
 
 	// set animation to idle
-	m_Animation.ChangeAnimation(animStates::Idle, 4, true);
-}
-
-Entity::~Entity()
-{
-
+	m_Animation.ChangeAnimation(animStates::Idle, idleFrameCount, true);
 }
 
 void Entity::Move(float dt)
 {
 	if (moveLeft)
 	{
-		m_Animation.ChangeAnimation(animStates::Run, 6, true);
+		m_Animation.ChangeAnimation(animStates::Run, walkFrameCount, true);
 
 		// if facing right, turn left
 		if (m_FaceRight)
@@ -66,7 +65,7 @@ void Entity::Move(float dt)
 	}
 	else if (moveRight)
 	{
-		m_Animation.ChangeAnimation(animStates::Run, 6, true);
+		m_Animation.ChangeAnimation(animStates::Run, walkFrameCount, true);
 
 		// if facing left, turn right
 		if (!m_FaceRight)
@@ -89,7 +88,7 @@ void Entity::Move(float dt)
 		
 		if (!m_inAir)
 		{
-			m_Animation.ChangeAnimation(animStates::Jump, 2, false);
+			m_Animation.ChangeAnimation(animStates::Jump, jumpFrameCount, false);
 
 			PlaySound("smb_jump-small.wav");
 
@@ -97,6 +96,11 @@ void Entity::Move(float dt)
 			m_inAir = true;
 		}
 	}
+}
+
+void Entity::SetAnimationTexture(sf::Texture* texture, sf::Vector2u dimensions, int switchTime)
+{
+	m_Animation = Animation(texture, dimensions, switchTime);
 }
 
 void Entity::Update(float dt, MapReader& mr)
@@ -113,7 +117,7 @@ void Entity::Update(float dt, MapReader& mr)
 		// stop velocity from bouncing around after getting close to 0
 		if (m_Velocity.x <= 0)
 		{
-			m_Animation.ChangeAnimation(animStates::Idle, 4, true);
+			m_Animation.ChangeAnimation(animStates::Idle, idleFrameCount, true);
 			m_Velocity.x = 0;
 		}
 	}
@@ -124,7 +128,7 @@ void Entity::Update(float dt, MapReader& mr)
 		// stop velocity from bouncing around after getting close to 0
 		if (m_Velocity.x >= 0)
 		{
-			m_Animation.ChangeAnimation(animStates::Idle, 4, true);
+			m_Animation.ChangeAnimation(animStates::Idle, idleFrameCount, true);
 			m_Velocity.x = 0;
 		}
 	}
@@ -132,14 +136,14 @@ void Entity::Update(float dt, MapReader& mr)
 	// apply gravity
 	if (m_inAir)
 	{
-		m_Animation.ChangeAnimation(animStates::Jump, 2, false);
+		m_Animation.ChangeAnimation(animStates::Jump, jumpFrameCount, false);
 		m_Velocity.y += (m_Gravity * dt);
 	}
 	else if (!m_inAir)
 	{
 		if (jumpAnimCheck)
 		{
-			m_Animation.ChangeAnimation(animStates::Idle, 4, true);
+			m_Animation.ChangeAnimation(animStates::Idle, idleFrameCount, true);
 			jumpAnimCheck = false;
 		}
 		m_Velocity.y = 0;
@@ -177,7 +181,7 @@ void Entity::DetectCollisionL(MapReader& mr, sf::FloatRect boundingBox, int inde
 	{
 		if (!mr.GetTileMap()[index].passable)
 		{
-			m_Animation.ChangeAnimation(animStates::Idle, 4, true);
+			m_Animation.ChangeAnimation(animStates::Idle, idleFrameCount, true);
 
 			m_Sprite.setPosition(mr.GetTileMap()[index].tile.position.x + m_Width + boundingBox.width / 2 , m_Sprite.getPosition().y);
 			m_Velocity.x = 0;
@@ -191,7 +195,7 @@ void Entity::DetectCollisionR(MapReader& mr, sf::FloatRect boundingBox, int inde
 	{
 		if (!mr.GetTileMap()[index].passable)
 		{
-			m_Animation.ChangeAnimation(animStates::Idle, 4, true);
+			m_Animation.ChangeAnimation(animStates::Idle, idleFrameCount, true);
 
 			m_Sprite.setPosition(mr.GetTileMap()[index].tile.position.x - boundingBox.width / 2, m_Sprite.getPosition().y);
 			m_Velocity.x = 0;
